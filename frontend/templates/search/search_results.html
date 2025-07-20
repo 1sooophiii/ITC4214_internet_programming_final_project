@@ -1,0 +1,44 @@
+{% extends 'frontend/base.html' %}
+{% block content %}
+<div class="max-w-4xl mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-4">Search</h2>
+
+    <form method="get" action="{% url 'search' %}" class="mb-6">
+        <input
+            type="text"
+            name="q"
+            value="{{ query }}"
+            placeholder="Search tracks..."
+            class="border rounded px-4 py-2 w-full"
+        />
+    </form>
+
+    {% if query %}
+        <h3 class="text-xl font-semibold mb-2">Results for "{{ query }}":</h3>
+        {% if results %}
+            <ul class="space-y-2 pl-4">
+                {% for item in results %}
+                <li>
+                    <a href="{% url 'tracks:track_details' item.id %}" class="text-blue-600 hover:underline">
+                        {{ item.title }} — <span class="text-gray-500 text-sm">{{ item.artist.username }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-gray-500">No results found.</p>
+        {% endif %}
+    {% else %}
+        <h3 class="text-xl font-semibold mb-2">Recommended Tracks:</h3>
+        <ul class="space-y-2 pl-4">
+            {% for track in recommendations %}
+            <li>
+                <a href="{% url 'tracks:track_details' track.id %}" class="text-blue-600 hover:underline">
+                    {{ track.title }} — <span class="text-gray-500 text-sm">{{ track.artist.username }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}

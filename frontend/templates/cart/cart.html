@@ -1,0 +1,65 @@
+{% extends "frontend/base.html" %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto py-12 px-4">
+    <h2 class="text-2xl font-bold mb-6 text-emerald-600">Your Cart</h2>
+
+    {% if items %}
+    <table class="w-full mb-8 table-auto border-collapse rounded-lg overflow-hidden shadow-sm">
+        <thead class="bg-gray-100 dark:bg-gray-800 text-left text-sm uppercase tracking-wider">
+            <tr>
+                <th class="py-3 px-4">Track</th>
+                <th class="py-3 px-4">Quantity</th>
+                <th class="py-3 px-4">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+            {% for item in items %}
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
+                <td class="py-3 px-4 font-medium text-gray-700 dark:text-white">
+                    {{ item.track.title }}
+                </td>
+                <td class="py-3 px-4">
+                    <form action="{% url 'cart:update_cart_item' item.id %}" method="post" class="flex gap-2 items-center">
+                        {% csrf_token %}
+                        <input
+                            type="number"
+                            name="quantity"
+                            value="{{ item.quantity }}"
+                            min="1"
+                            class="w-16 px-2 py-1 border rounded-md text-sm focus:ring-emerald-500 focus:border-emerald-500"
+                        />
+                        <button type="submit" class="text-blue-600 hover:underline font-medium">
+                            Update
+                        </button>
+                    </form>
+                </td>
+                <td class="py-3 px-4">
+                    <a href="{% url 'cart:remove_from_cart' item.id %}"
+                        class="text-red-600 hover:underline font-medium">
+                        Remove
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="flex justify-between items-center">
+        <a href="{% url 'tracks:tracks' %}" class="text-blue-600 hover:underline">
+            &larr; Continue Browsing
+        </a>
+        <a href="{% url 'cart:checkout' %}" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-2 rounded-lg shadow">
+            Proceed to Checkout
+        </a>
+    </div>
+    {% else %}
+    <div class="text-center py-16 text-gray-500">
+        <p class="text-lg">Your cart is empty.</p>
+        <a href="{% url 'tracks:tracks' %}" class="text-emerald-500 hover:underline">Browse tracks</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

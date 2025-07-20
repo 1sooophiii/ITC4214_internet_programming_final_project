@@ -1,0 +1,85 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} NoteTrack | Home {%endblock%}
+
+{% block scripts %}
+<!--javascript scripts-->
+<script src="{% static 'js/welcometasks.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<!--index.html-->
+<!-- Hero Section -->
+<section class="text-center py-16 px-4">
+    <h1 class="text-5xl font-bold mb-4">Welcome to NoteTrack</h1>
+    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        The perfect place to keep track and organize your musical ideas!
+    </p>
+    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Use the studio to experiment using music theory tips and the tasks to
+        manage your composition process.
+    </p>
+
+    <a href="studio.html"
+        class="mt-6 inline-block bg-emerald-200 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-700 hover:text-indigo-400">
+        Enter the Studio
+    </a>
+</section>
+
+<!-- Features -->
+<section class="py-16 bg-gray-100 dark:bg-teal-900">
+    <div class="max-w-6xl mx-auto px-4">
+        <!-- gap: change the gap between columns and rows-->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+                <div class="flex justify-center">
+                    <i data-feather="refresh-cw" class="w-5 h-5 mt-1 mr-1 text-gray-700 dark:text-gray-300"></i>
+                    <h3 class="text-xl font-semibold mb-2">
+                        Task-Based Workflow
+                    </h3>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Organize your compostition and songwritting ideas into
+                    clear, manageable tasks.
+                </p>
+            </div>
+            <div>
+                <div class="flex justify-center">
+                    <i data-feather="music" class="w-5 h-5 mt-1 mr-1 text-gray-700 dark:text-gray-300"></i>
+                    <h3 class="text-xl font-semibold mb-2">Studio Workspace</h3>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Choose keys, chord progressions, instrumentation and moods.
+                </p>
+            </div>
+            <div>
+                <div class="flex justify-center">
+                    <i data-feather="bar-chart-2" class="w-5 h-5 mt-1 mr-1 text-gray-700 dark:text-gray-300"></i>
+                    <h3 class="text-xl font-semibold mb-2">Track Progress</h3>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Keep track of your compositions and songwritting progress.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Activity -->
+<section id="welcomeTasks" class="py-16 px-4 max-w-4xl mx-auto overflow-x-auto max-w-full">
+    <div class="flex justify-center">
+        <i data-feather="clock" class="w-7 h-7 mt-1 mr-2 text-gray-700 dark:text-gray-300"></i>
+        <h2 class="text-3xl font-bold mb-6 text-center">Latest Activity</h2>
+    </div>
+
+    <p class="text-gray-600 dark:text-gray-400 text-center mb-4">
+        Upcoming Tasks
+    </p>
+    <ul id="taskList" class="space-y-4"></ul>
+    <a href="tasks.html"
+        class="mt-6 inline-block bg-emerald-200 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-700 hover:text-indigo-400">
+        View Tasks
+    </a>
+</section>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<section class="max-w-md mx-auto py-16 px-4">
+    <h2 class="text-3xl font-extrabold text-center mb-8 text-emerald-500">Login</h2>
+    <form method="post" class="space-y-6 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg">
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 transition text-white font-semibold py-3 rounded-lg shadow">
+            Login
+        </button>
+    </form>
+    <p class="mt-6 text-center text-sm text-gray-700 dark:text-gray-300">
+        Not a member yet?
+        <a href="{% url 'register' %}" class="text-emerald-600 hover:underline font-semibold">Register</a>
+    </p>
+</section>
+{% endblock %}

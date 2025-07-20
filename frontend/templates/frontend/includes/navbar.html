@@ -1,0 +1,103 @@
+</head>
+<!-- all the elements have a bgcolor class and a dark:<color> class that is being used in the dark theme -->
+
+<body class="bg-white text-gray-900 dark:bg-teal-950 dark:text-white">
+    <!-- Navbar -->
+    <!--sticky: is for the whole navbar to always stay on top of the page
+        top-0: position navbar on the top of the page 
+        shadow: adds drop shadow, z-50: z index is the third dimension and gets the navbar to be on front-->
+    <header class="sticky top-0 bg-emerald-200 dark:bg-teal-900 text-white shadow z-50">
+        <!-- max-w-7xl: Max width for content
+            mx-auto: Center horizontally 
+            px-4: horizontal padding (also for small -sm and large -lg depending on screen size)-->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-800 dark:text-gray-50">
+            <!--flex: arrange elements in a container
+            justify-between: leave space between elements pushing them on the edges
+            items-center: centers items vertically
+            h-16: height
+            -->
+            <div class="flex justify-between items-center h-16">
+                <!-- text-xl: extra large font size
+                    font-bold: bold text-->
+                <div class="flex">
+                    <i data-feather="music" class="w-6 h-6 mt-1 text-gray-800 dark:text-gray-50"></i>
+                    <a href="{% url 'index' %}" class="text-xl font-bold text-gray-800 dark:text-gray-50">NoteTrack</a>
+                </div>
+                <!-- space on both x sides of anchor elements -->
+                <nav class="space-x-4 hidden lg:flex items-center">
+                    <a href="{% url 'index' %}" class="hover:text-indigo-400">Home</a>
+                    <a href="{% url 'tasks' %}" class="hover:text-indigo-400">Tasks</a>
+                    <a href="{% url 'studio' %}" class="hover:text-indigo-400">Studio</a>
+                    <a href="{% url 'about' %}" class="hover:text-indigo-400">About</a>
+                    <a href="{% url 'contact' %}" class="hover:text-indigo-400">Contact</a>
+                    <span class="inline-block h-5 border-l border-gray-800 mx-2"></span>
+                    <a href="{% url 'tracks:tracks' %}" class="hover:text-indigo-400">Tracks</a>
+
+                    <!-- Search -->
+                    <form action="{% url 'search' %}" method="get" class="inline-block">
+                        <input type="text" name="q" placeholder="Search"
+                            class="px-2 py-1 rounded bg-white text-black focus:outline-none" />
+                    </form>
+
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="hover:text-indigo-400">Dashboard</a>
+                        <a href="{% url 'profile' %}" class="hover:text-indigo-400">Profile</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="hover:text-indigo-400">Login</a>
+                        <a href="{% url 'register' %}" class="hover:text-indigo-400">Register</a>
+                    {% endif %}
+                    <div class="flex">
+                    <!-- Dark Mode Button -->
+                    <!-- ml-4: left margin, p-2: padding, rounded: rounded corners on button, 
+                    hover: changes how the button will look when hovering, cursor pointer: changes cursor when hovering -->
+                    <button id="toggle-dark" class="p-2 rounded cursor-pointer">
+                        <i data-feather="moon" id="dark-icon" class="w-5 h-5 hover:text-indigo-500"></i>
+                        <i data-feather="sun" id="light-icon" class="w-5 h-5 hover:text-yellow-500 hidden"></i>
+                    </button>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'cart:cart' %}" class="p-2 hover:text-green-400">                        
+                        <i data-feather="shopping-cart" class="w-5 h-5"></i>
+                    </a>
+                    <a href="{% url 'logout' %}" class="p-2 hover:text-red-400">
+                        <i data-feather="log-out" class="w-5 h-5"></i>
+                    </a>
+                    {% endif %}
+                    </div>
+                </nav>
+                <!-- Hamburger button -->
+                <button id="mobileMenuBtn" class="hidden hover:cursor-pointer" aria-label="Toggle mobile menu">
+                    <i data-feather="menu" class="w-6 h-6 text-gray-700 dark:text-gray-300"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <!-- Hidden on medium and large screens -->
+    <!--block: will put the element on its own line and fill its parent-->
+    <div id="mobileMenu"
+        class="hidden md:hidden bg-white dark:bg-gray-700 border-t border-gray-200 dark:border-gray-700 px-4 py-2 text-right">
+        <a href="{% url 'index' %}" class="block py-1 hover:text-indigo-400">Home</a>
+        <a href="{% url 'tasks' %}" class="block py-1 hover:text-indigo-400">Tasks</a>
+        <a href="{% url 'studio' %}" class="block py-1 hover:text-indigo-400">Studio</a>
+        <a href="{% url 'tracks:tracks' %}" class="block py-1 hover:text-indigo-400">Tracks</a>
+        <a href="{% url 'cart:cart' %}" class="block py-1 hover:text-indigo-400">Cart</a>
+        <a href="{% url 'about' %}" class="block py-1 hover:text-indigo-400">About</a>
+        <a href="{% url 'contact' %}" class="block py-1 hover:text-indigo-400">Contact</a>
+
+        <form action="{% url 'search' %}" method="get" class="block py-1">
+            <input type="text" name="q" placeholder="Search"
+                class="w-full px-2 py-1 rounded bg-white text-black focus:outline-none" />
+        </form>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="block py-1 hover:text-indigo-400">Profile</a>
+            <a href="{% url 'dashboard' %}" class="block py-1 hover:text-indigo-400">Dashboard</a>
+            <a href="{% url 'logout' %}" class="block py-1 hover:text-red-400">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="block py-1 hover:text-indigo-400">Login</a>
+            <a href="{% url 'register' %}" class="block py-1 hover:text-indigo-400">Register</a>
+        {% endif %}
+
+        <div id="mobile-toggle-dark" class="block py-1 hover:text-indigo-400">Dark / Light Mode</div>
+    </div>

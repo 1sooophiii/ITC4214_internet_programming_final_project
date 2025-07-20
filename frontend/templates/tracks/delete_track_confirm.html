@@ -1,0 +1,15 @@
+{% extends 'frontend/base.html' %}
+{% block title %}Delete Track{% endblock %}
+{% block content %}
+<section class="max-w-lg mx-auto py-12 px-4">
+    <div class="bg-white dark:bg-gray-900 rounded shadow p-8">
+        <h2 class="text-xl text-red-600 font-semibold mb-4">Confirm Delete</h2>
+        <p>Are you sure you want to delete "{{ track.title }}"?</p>
+        <form method="post" class="mt-6 flex space-x-4">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded">Yes, Delete</button>
+            <a href="{% url 'dashboard' %}" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded">Cancel</a>
+        </form>
+    </div>
+</section>
+{% endblock %}

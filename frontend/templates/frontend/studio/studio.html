@@ -1,0 +1,139 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} NoteTrack | Studio {%endblock%}
+
+{% block scripts %}
+<!--javascript scripts-->
+<script src="{% static 'js/studio.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<!--studio.html-->
+
+<main>
+    <!-- Music Playground Section -->
+    <section class="text-center py-16 px-4">
+        <h1 class="text-4xl font-bold mb-4">Music Studio Workspace</h1>
+        <p class="text-lg">
+            Keep track of your song ideas! Save your chosen key, chord progressions,
+            mood, instrumentation and any other idea you have for your next
+            composition.
+        </p>
+    </section>
+
+    <form id="studioForm" class="space-y-4">
+        <!--title-->
+        <section class="bg-gray-100 dark:bg-teal-800 p-4 rounded-lg shadow ">
+            <h2 class="text-xl font-semibold mb-2 ">
+                Give a Title
+            </h2>
+            <input type="text" id="songTitle" placeholder="Song Title" class="w-full p-2 border rounded" />
+        </section>
+
+        <!-- Key Selection -->
+        <section class="bg-gray-100 dark:bg-teal-800 p-4 rounded-lg shadow ">
+            <h2 class="text-xl font-semibold mb-2 ">
+                Choose a Key
+            </h2>
+            <select id="key-select" class="w-full p-2 rounded text-black dark:text-white dark:bg-teal-700 ">
+                <option disabled selected>Select a key</option>
+
+                <optgroup label="Major Keys">
+                    <option>C Major</option>
+                    <option>C♯/D♭ Major</option>
+                    <option>D Major</option>
+                    <option>D♯/E♭ Major</option>
+                    <option>E Major</option>
+                    <option>F Major</option>
+                    <option>F♯/G♭ Major</option>
+                    <option>G Major</option>
+                    <option>G♯/A♭ Major</option>
+                    <option>A Major</option>
+                    <option>A♯/B♭ Major</option>
+                    <option>B Major</option>
+                </optgroup>
+
+                <optgroup label="Minor Keys">
+                    <option>A Minor</option>
+                    <option>A♯/B♭ Minor</option>
+                    <option>B Minor</option>
+                    <option>C Minor</option>
+                    <option>C♯/D♭ Minor</option>
+                    <option>D Minor</option>
+                    <option>D♯/E♭ Minor</option>
+                    <option>E Minor</option>
+                    <option>F Minor</option>
+                    <option>F♯/G♭ Minor</option>
+                    <option>G Minor</option>
+                    <option>G♯/A♭ Minor</option>
+                </optgroup>
+            </select>
+        </section>
+
+        <!-- Mood Selector -->
+        <section class="bg-gray-100 dark:bg-teal-800 p-4 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-2">
+                Pick a Mood
+            </h2>
+            <div class="flex flex-wrap gap-2">
+                <button class="mood-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    Happy
+                </button>
+                <button class="mood-btn px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">
+                    Chill
+                </button>
+                <button class="mood-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                    Sad
+                </button>
+                <button class="mood-btn px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">
+                    Mysterious
+                </button>
+                <!-- Add more -->
+            </div>
+        </section>
+
+        <!-- Chord Progressions -->
+        <section class="bg-gray-100 dark:bg-teal-800 p-4 rounded-lg shadow ">
+            <h2 class="text-xl font-semibold mb-2 ">
+                Suggested Chord Progressions
+            </h2>
+            <ul class="list-disc pl-6" id="chord-suggestions">
+                <!-- Dynamically populated -->
+            </ul>
+        </section>
+
+        <!-- Instrumentation Plan -->
+        <section class="bg-gray-100 dark:bg-teal-800 p-4 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-2 ">
+                Instruments
+            </h2>
+            <div class="grid grid-cols-2 gap-4">
+                <label><input type="checkbox" class="mr-2" /> Piano</label>
+                <label><input type="checkbox" class="mr-2" />
+                    Guitar</label>
+                <label><input type="checkbox" class="mr-2" /> Bass</label>
+                <label><input type="checkbox" class="mr-2" /> Drums</label>
+                <label><input type="checkbox" class="mr-2" />
+                    Strings</label>
+                <label><input type="checkbox" class="mr-2" />
+                    Synths</label>
+            </div>
+        </section>
+
+        <section class="bg-gray-100 dark:bg-teal-800 p-4 rounded-lg shadow">
+            <label for="notes" class="block mb-1 font-medium">Notes</label>
+            <textarea id="songNotes" name="notes" rows="5" placeholder="Keep here any notes or ideas..."
+                class="w-full px-4 py-2 border rounded dark:bg-teal-900 dark:text-white dark:border-gray-700"></textarea>
+        </section>
+
+        <!-- Save Idea -->
+        <section class="bg-gray-100 dark:bg-teal-800 p-4 rounded-lg shadow text-center">
+            <button type="submit" id="save-task"
+                class="px-6 py-2 bg-emerald-200 text-gray-900 rounded hover:bg-gray-700 hover:text-indigo-400">
+                Save Song as a Task
+            </button>
+        </section>
+    </form>
+</main>
+
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} NoteTrack | Tasks {%endblock%}
+
+{% block scripts %}
+<!--javascript scripts-->
+<script src="{% static 'js/tasks.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<!--tasks.html-->
+
+<!-- Tasks Section -->
+<section class="text-center py-16 px-4">
+    <h1 class="text-4xl font-bold mb-4">Tasks</h1>
+    <p class="text-lg">
+        Keep track of your saved tasks
+    </p>
+</section>
+
+<!-- Task Form -->
+<section class="bg-gray-100 dark:bg-teal-900 text-gray-600 dark:text-gray-300 p-6 rounded-xl shadow-md">
+    <h2 class="text-xl font-semibold mb-4 text-center border-b-3 rounded">
+        Add New Task
+    </h2>
+    <form onsubmit="return false;">
+        <div class="grid gap-4 md:grid-cols-2">
+            <div>
+                <label class="block mb-1 font-medium">Task Name</label>
+                <input id="taskName" type="text" class="w-full p-2 border rounded dark:bg-teal-950 dark:border-gray-700"
+                    placeholder="e.g., Compose Intro" required />
+            </div>
+            <div>
+                <label class="block mb-1 font-medium">Due Date</label>
+                <input id="taskDate" type="date" class="w-full p-2 border rounded dark:bg-teal-950 dark:border-gray-700"
+                    required />
+            </div>
+            <div class="md:col-span-2">
+                <label class="block mb-1 font-medium">Description</label>
+                <textarea id="taskDescription" class="w-full p-2 border rounded dark:bg-teal-950 dark:border-gray-700"
+                    rows="3" placeholder="Task details..." required></textarea>
+            </div>
+        </div>
+        <div class="flex justify-center mt-4">
+            <button id="taskSubmit" type="submit"
+                class="bg-emerald-200 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-700 hover:text-indigo-400 transition">
+                Add Task
+            </button>
+        </div>
+    </form>
+</section>
+
+<!-- Task Summary -->
+<section class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center mt-8 mb-8">
+    <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded">
+        <div class="text-lg font-semibold">Total Tasks</div>
+        <div class="text-2xl font-bold" id="summary-total">0</div>
+    </div>
+    <div class="bg-yellow-100 dark:bg-yellow-900 p-4 rounded">
+        <div class="text-lg font-semibold">Pending</div>
+        <div class="text-2xl font-bold" id="summary-pending">0</div>
+    </div>
+    <div class="bg-green-100 dark:bg-green-900 p-4 rounded">
+        <div class="text-lg font-semibold">Completed</div>
+        <div class="text-2xl font-bold" id="summary-completed">0</div>
+    </div>
+</section>
+
+<!-- Filter and Sort -->
+<div class="flex flex-col sm:flex-row justify-between items-center gap-4 px-4 mt-4 mb-2">
+    <!-- Filter -->
+    <div>
+        <label for="filterStatus" class="mr-2 font-medium">Filter:</label>
+        <select id="filterStatus" class="rounded p-2 dark:bg-teal-900 dark:text-white">
+            <option value="All">All</option>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+
+    <!-- Sort -->
+    <div>
+        <label for="sortTasks" class="mr-2 font-medium">Sort by:</label>
+        <select id="sortTasks" class="rounded p-2 dark:bg-teal-900 dark:text-white">
+            <option value="date">Due Date</option>
+            <option value="name">Name</option>
+            <option value="status">Status</option>
+        </select>
+    </div>
+</div>
+
+<!-- Task Table -->
+<section class="overflow-x-auto bg-gray-100 dark:bg-teal-900 text-gray-600 dark:text-gray-300">
+    <h2 class="text-xl font-semibold mt-4 text-center border-b-3 rounded">
+        Task List
+    </h2>
+    <table class="min-w-full table-auto bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-sm">
+        <thead>
+            <tr class="bg-gray-100 dark:bg-gray-700 text-left">
+                <th
+                    class="p-3 border-b border-r box-border border-gray-300 dark:border-gray-600 max-w-[200px] overflow-x-auto whitespace-nowrap align-middle">
+                    Name
+                </th>
+                <th
+                    class="p-3 border-b border-r box-border border-gray-300 dark:border-gray-600 max-w-[200px] overflow-x-auto whitespace-nowrap align-middle">
+                    Description
+                </th>
+                <th
+                    class="p-3 border-b border-r box-border border-gray-300 dark:border-gray-600 max-w-[200px] overflow-x-auto whitespace-nowrap align-middle">
+                    Due Date
+                </th>
+                <th
+                    class="p-3 border-b border-r box-border border-gray-300 dark:border-gray-600 max-w-[200px] overflow-x-auto whitespace-nowrap align-middle">
+                    Status
+                </th>
+                <th
+                    class="p-3 border-b border-r box-border border-gray-300 dark:border-gray-600 max-w-[200px] overflow-x-auto whitespace-nowrap align-middle">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody id="taskTable"></tbody>
+    </table>
+</section>
+
+<!-- Edit Task Modal -->
+<div id="editModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden justify-center items-center z-50">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg w-11/12 max-w-md">
+        <h2 class="text-xl font-bold mb-4 text-center">Edit Task</h2>
+        <input id="editName" type="text" class="w-full p-2 mb-2 border rounded dark:bg-teal-950"
+            placeholder="Task Name" />
+        <input id="editDate" type="date" class="w-full p-2 mb-2 border rounded dark:bg-teal-950" />
+        <textarea id="editDesc" rows="3" class="w-full p-2 mb-2 border rounded dark:bg-teal-950"
+            placeholder="Description"></textarea>
+        <div class="flex justify-end space-x-2">
+            <button id="cancelEdit" class="px-4 py-2 bg-gray-400 rounded hover:bg-gray-500 text-white">
+                Cancel
+            </button>
+            <button id="saveEdit" class="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 text-white">
+                Save
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} NoteTrack | About {%endblock%}
+
+{% block scripts %}
+<!--javascript scripts-->
+
+{% endblock %}
+
+{% block content %}
+<!--about.html-->
+
+<main>
+    <!-- About Section -->
+    <section class="text-center py-16 px-4">
+        <h1 class="text-4xl font-bold mb-4">About NoteTrack</h1>
+        <p class="text-lg">
+            Built to help musicians turn inspiration into organized
+            tasks! Now musicians can keep track of their creative
+            process and return to their notes any time when they are
+            ready to compose.
+        </p>
+        <p class="text-lg">Meet our team and learn more about us!</p>
+    </section>
+
+    <!-- Team Section -->
+    <section class="mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-center">Our Team</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <!-- Team Member Card -->
+            <div class="bg-gray-100 dark:bg-teal-900 dark:text-gray-200 p-4 rounded-lg shadow text-center">
+                <img src="{% static 'images/mollie-sivaram-P2igqqmbiKE-unsplash.webp' %}"
+                    alt="Portrait of Sophia, Founder and Developer" class="mx-auto rounded-full mb-3" />
+                <h3 class="text-xl font-semibold">Sophia</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Founder and Developer
+                </p>
+            </div>
+
+            <div class="bg-gray-100 dark:bg-teal-900 dark:text-gray-200 p-4 rounded-lg shadow text-center">
+                <img src="{% static 'images/roy-wen-bolLU6KLThc-unsplash.webp' %}" alt="Portrait of Alex, "
+                    class="mx-auto rounded-full mb-3" />
+                <h3 class="text-xl font-semibold">Alex</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Marketing Manager
+                </p>
+            </div>
+
+            <div class="bg-gray-100 dark:bg-teal-900 dark:text-gray-200 p-4 rounded-lg shadow text-center">
+                <img src="{% static 'images/karsten-winegeart-oU6KZTXhuvk-unsplash.webp' %}"
+                    alt="Portrait of Jamie, UX Designer." class="mx-auto rounded-full mb-3" />
+                <h3 class="text-xl font-semibold">Jamie</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    UX Designer
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Carousel (testimonial/quote images) -->
+    <section class="mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-center">
+            What Musicians Say
+        </h2>
+        <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar space-x-4 pb-4">
+            <div class="snap-start shrink-0 w-64 bg-gray-200 dark:bg-teal-900 dark:text-gray-200 p-4 rounded-lg shadow">
+                <p class="italic">
+                    “This app helped me organize my ideas fast before
+                    studio time!”
+                </p>
+                <p class="text-sm mt-2 text-right">-Indie Songwriter</p>
+            </div>
+            <div class="snap-start shrink-0 w-64 bg-gray-200 dark:bg-teal-900 dark:text-gray-200 p-4 rounded-lg shadow">
+                <p class="italic">
+                    “I love how it suggests chord progressions!”
+                </p>
+                <p class="text-sm mt-2 text-right">-Producer</p>
+            </div>
+            <div class="snap-start shrink-0 w-64 bg-gray-200 dark:bg-teal-900 dark:text-gray-200 p-4 rounded-lg shadow">
+                <p class="italic">
+                    “A great tool for brainstorming and tracking musical
+                    ideas.”
+                </p>
+                <p class="text-sm mt-2 text-right">-Composer</p>
+            </div>
+            <div class="snap-start shrink-0 w-64 bg-gray-200 dark:bg-teal-900 dark:text-gray-200 p-4 rounded-lg shadow">
+                <p class="italic">
+                    “A must. It helped me speed up my songwritting.”
+                </p>
+                <p class="text-sm mt-2 text-right">-Composer</p>
+            </div>
+            <div class="snap-start shrink-0 w-64 bg-gray-200 dark:bg-teal-900 dark:text-gray-200 p-4 rounded-lg shadow">
+                <p class="italic">
+                    “So easy to use... Now I keep track of my musical
+                    tasks effortlessly.”
+                </p>
+                <p class="text-sm mt-2 text-right">-Composer</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

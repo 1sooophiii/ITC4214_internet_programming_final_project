@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!-- Use the scroll-smooth utility to enable smooth scrolling within html -->
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="NoteTrack is your all-in-one music composition and planning studio. Write down ideas, explore chord progressions, and manage your songwriting process." />
+
+    <title>{% block title %}NoteTrack{% endblock %}</title>
+
+    <!-- tailwind cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" defer></script>
+    <style type="text/tailwindcss">
+        /* used from tailwind documentation for toggling dark mode: https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually */
+        @custom-variant dark (&:where(.dark, .dark *));
+    </style>
+
+    <!-- Feather Icons -->
+    <!-- replace function replaces all i elements with svg tags -->
+    <script src="https://unpkg.com/feather-icons" defer onload="feather.replace()"></script>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" defer></script>
+
+    <!-- Global Scripts-->
+    <!--javascript scripts-->
+    <script src="{% static 'js/darkmode.js' %}" defer></script>
+    <script src="{% static 'js/layout.js' %}" defer></script>
+    <script src="{% static 'js/messages.js' %}" defer></script>
+
+    <!--non-global scripts-->
+    {% block scripts %} {% endblock %}
+</head>
+
+<body>
+    {% include 'frontend/includes/navbar.html' %}
+
+    {% if messages %}
+    <div id="django-messages" class="space-y-2 fixed top-6 right-6 z-50">
+        {% for message in messages %}
+        <div class="p-3 rounded shadow text-white 
+                    {% if message.tags == 'success' %}bg-green-500
+                    {% elif message.tags == 'error' %}bg-red-500
+                    {% elif message.tags == 'info' %}bg-blue-500
+                    {% elif message.tags == 'warning' %}bg-yellow-500
+                    {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+    <main>{% block content %} {% endblock %}</main>
+
+    {% include 'frontend/includes/footer.html' %}
+
+</body>
+
+</html>
